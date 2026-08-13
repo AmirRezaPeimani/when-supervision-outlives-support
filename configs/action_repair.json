@@ -1,0 +1,9 @@
+{
+  "seed": 20260808,
+  "v1_root": ".",
+  "corpora": ["toolace", "retool"],
+  "max_lengths": [256, 512, 1024, 2048],
+  "modes": ["whole_schema", "invoked_tool", "parameter_slice"],
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "maximum_schema_iterations": 2
+}

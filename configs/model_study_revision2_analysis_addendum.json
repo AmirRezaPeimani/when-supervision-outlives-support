@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-08-08T08:31:16Z",
+  "status": "frozen_before_first_test_or_conflict_evaluation",
+  "reason": "The protocol prespecified family heterogeneity, but the primary analysis program only aggregated across families. This addendum freezes a descriptive all-family summary before any sealed evaluation is opened.",
+  "family_order": [
+    "order",
+    "error",
+    "inventory",
+    "route",
+    "ticket",
+    "checksum"
+  ],
+  "splits": [
+    "test",
+    "conflict"
+  ],
+  "corruption_levels_percent": [
+    0,
+    25,
+    50,
+    100
+  ],
+  "seeds": [
+    20260808,
+    20260809,
+    20260810
+  ],
+  "reported_metrics": [
+    "exact",
+    "copied_stale",
+    "value_token_nll",
+    "whole_target_nll"
+  ],
+  "contrasts": "100%-minus-0% for every family; descriptive, no family selection or multiplicity-adjusted hypothesis claim",
+  "script_sha256": "ac875376b6a26b80f61c3f418a82c0c9ad05d9fde34172aed4f73530bcda9a4d",
+  "primary_analysis_sha256": "4d9cc8490b2ae25dfebe0469aa7e15177b68d2a3c7b9c43791ef075ade0ad008"
+}

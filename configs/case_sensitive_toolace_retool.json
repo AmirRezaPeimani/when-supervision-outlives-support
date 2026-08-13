@@ -1,0 +1,12 @@
+{
+  "seed": 20260808,
+  "v1_root": ".",
+  "corpora": ["toolace", "retool"],
+  "max_lengths": [256, 512, 1024, 2048, 4096, 8192],
+  "policies": ["bfd_split", "wrapped_single_batch"],
+  "maximum_rows": null,
+  "template": "qwen25_current",
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "oracle_case_sensitive": true,
+  "oracle_definition": "Exact-case source-to-target textual identity with exact row and message provenance"
+}

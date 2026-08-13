@@ -1,0 +1,9 @@
+split,corruption,seeds,primary_exact_mean,primary_exact_seed_sd,target_substring_mean,target_substring_seed_sd,stale_substring_mean,stale_substring_seed_sd
+conflict,0,3,0.9988888888888888,0.0009622504486494145,0.9988888888888888,0.0009622504486494145,0.0,0.0
+conflict,25,3,1.0,0.0,1.0,0.0,0.0,0.0
+conflict,50,3,1.0,0.0,1.0,0.0,0.0,0.0
+conflict,100,3,0.0,0.0,0.0,0.0,0.0,0.0
+test,0,3,0.7727777777777778,0.3877905123665114,0.9938888888888888,0.006735753140545661,0.0,0.0
+test,25,3,1.0,0.0,1.0,0.0,0.0,0.0
+test,50,3,1.0,0.0,1.0,0.0,0.0,0.0
+test,100,3,0.0,0.0,0.0,0.0,0.0,0.0

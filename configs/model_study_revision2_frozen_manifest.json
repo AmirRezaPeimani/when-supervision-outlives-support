@@ -1,0 +1,41 @@
+{
+  "frozen_after_development_gate": "2026-08-08",
+  "supersedes_for_final_matrix": "configs/model_study_frozen_manifest.json",
+  "development_gate": {
+    "records": 360,
+    "exact": 1.0,
+    "threshold": 0.5,
+    "copied_stale": 0.0,
+    "value_token_nll": 0.00008436247030785024,
+    "status": "PASS"
+  },
+  "corruption_levels": [0, 25, 50, 100],
+  "optimization_seeds": [20260808, 20260809, 20260810],
+  "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "compute_device": "mps",
+  "compute_dtype": "float16",
+  "artifact_path_normalization": {
+    "scope": "model_path only",
+    "source_config_sha256": "30a57231bafad0b6eb943622f8e0503794547986513494caf677ff52b417b51b",
+    "portable_config_sha256": "8df4093b12a58a04a991547e0537c599fdc9f17caefa6512a255583979af1146"
+  },
+  "test_and_conflict_opened_before_freeze": false,
+  "sha256": {
+    "config": "30a57231bafad0b6eb943622f8e0503794547986513494caf677ff52b417b51b",
+    "train_script": "897c072848a9e62efdbe302d3c3183f45e9ad6688c997aa60982059c550cec0a",
+    "evaluate_script": "6c947dafc928f66ce8305469075018b9ba3d8957a716ac34642cc605efd6c3cc",
+    "matrix_driver": "6b60bb7f64d7a5f598a2e17262e73b661f171098305996ca7264ffe434bdea08",
+    "analysis_script": "4d9cc8490b2ae25dfebe0469aa7e15177b68d2a3c7b9c43791ef075ade0ad008",
+    "model_safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "model_config": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "model_tokenizer": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "train_0": "894add6fd22b9dd7fede73a0b30ac1600a41eab12326c6124997d65345f1fb8e",
+    "train_25": "cc2849e86a27e3ae6fb0724e2d132f322cb3d51295b72a2d571a08841f7462af",
+    "train_50": "afb70e80919ba1d0550ef4dcd24f2531130d172037ec2e35b34d89721eb5ac99",
+    "train_100": "5db74ba25997a7e2f09b941360364c35b14aaf1c4b53e7b33566b49f82e382a1",
+    "dev": "3ca412207ed26c4ff0a9b50ac0ccc52f0a006eb7e27783b9895ed5091adf7468",
+    "test": "181cc9e7d9cc901daa6d202c8973c02afdba142ece3591e12a325171d2b84d73",
+    "conflict": "dfabba39cfbb8373f34db26113d691febf30630d9ec0123dcea562cc53c29e03"
+  }
+}

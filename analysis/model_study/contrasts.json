@@ -1,0 +1,64 @@
+{
+  "test": {
+    "records": 600,
+    "optimization_seeds": 3,
+    "exact_100_minus_0": -0.7727777777777778,
+    "exact_100_minus_0_ci": [
+      -0.7855555555555556,
+      -0.76
+    ],
+    "value_nll_100_minus_0": 1.2442746922664225,
+    "value_nll_100_minus_0_ci": [
+      1.2165025129468283,
+      1.270956993807992
+    ],
+    "copied_stale_100_minus_0": 0.0,
+    "copied_stale_100_minus_0_ci": [
+      0.0,
+      0.0
+    ],
+    "exact_linear_slope_per_full_corruption": -0.8467936507936508,
+    "exact_linear_slope_ci": [
+      -0.8570158730158729,
+      -0.8365714285714285
+    ],
+    "value_nll_linear_slope_per_full_corruption": 1.2799766381733655,
+    "value_nll_linear_slope_ci": [
+      1.2512767400585363,
+      1.3074067598748096
+    ],
+    "bootstrap_unit": "record_id; all four corruption conditions and three seeds retained per draw",
+    "bootstrap_replicates": 2000
+  },
+  "conflict": {
+    "records": 600,
+    "optimization_seeds": 3,
+    "exact_100_minus_0": -0.9988888888888889,
+    "exact_100_minus_0_ci": [
+      -1.0,
+      -0.9972222222222222
+    ],
+    "value_nll_100_minus_0": 1.0382625658711542,
+    "value_nll_100_minus_0_ci": [
+      1.0187665779217445,
+      1.0596511626773082
+    ],
+    "copied_stale_100_minus_0": 0.0,
+    "copied_stale_100_minus_0_ci": [
+      0.0,
+      0.0
+    ],
+    "exact_linear_slope_per_full_corruption": -1.02768253968254,
+    "exact_linear_slope_ci": [
+      -1.028571428571429,
+      -1.0263492063492066
+    ],
+    "value_nll_linear_slope_per_full_corruption": 1.0680801742555386,
+    "value_nll_linear_slope_ci": [
+      1.0480375461012992,
+      1.090038510684836
+    ],
+    "bootstrap_unit": "record_id; all four corruption conditions and three seeds retained per draw",
+    "bootstrap_replicates": 2000
+  }
+}

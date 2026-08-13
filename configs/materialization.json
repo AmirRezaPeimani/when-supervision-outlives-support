@@ -1,0 +1,8 @@
+{
+  "seed": 20260808,
+  "v1_root": ".",
+  "corpora": ["toolace", "retool"],
+  "max_lengths": [256, 512, 1024, 2048],
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "edge_kind": "tool_to_assistant"
+}

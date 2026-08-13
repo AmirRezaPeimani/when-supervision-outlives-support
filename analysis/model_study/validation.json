@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "training_runs": 12,
+  "sealed_adapter_evaluations": 24,
+  "base_evaluations": 2,
+  "records_per_evaluation": 600,
+  "training_seconds": 8262.85224032402,
+  "evaluation_seconds": 5185.07797908783,
+  "paid_compute_cad": 0.0,
+  "revision1_adapters_in_final_matrix": 0
+}

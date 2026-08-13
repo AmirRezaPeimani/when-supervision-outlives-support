@@ -1,0 +1,20 @@
+{
+  "status": "confirmed_release_conformance_failure",
+  "rows": 2001,
+  "tokens": 4002,
+  "seq_length": 17,
+  "first_native_mismatch_index": 2000,
+  "native_mismatched_tokens": 2002,
+  "native_exact_preservation": false,
+  "single_batch_exact_preservation": true,
+  "expected_at_first_mismatch": 1000,
+  "native_at_first_mismatch": 0,
+  "versions": {
+    "trl": "1.9.2",
+    "transformers": "5.14.1",
+    "datasets": "4.8.4",
+    "pyarrow": "25.0.0"
+  },
+  "pack_wrapped_source_sha256": "304ac81372b1c868466fdf68136b6ba2954c76b124cad02d17145efd1699a530",
+  "paid_compute_cad": 0.0
+}

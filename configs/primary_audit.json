@@ -1,0 +1,19 @@
+{
+  "seed": 20260808,
+  "v1_root": ".",
+  "corpora": ["toolace", "retool"],
+  "max_lengths": [256, 512, 1024, 2048, 4096, 8192],
+  "policies": [
+    "keep_start",
+    "bfd",
+    "bfd_split",
+    "wrapped",
+    "wrapped_single_batch",
+    "drop_overlength",
+    "keep_end"
+  ],
+  "maximum_rows": null,
+  "template": "qwen25_current",
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "addendum_reason": "Distinguish released wrapped default from intended one-batch semantics after a frozen release-conformance test detected multi-batch corruption."
+}

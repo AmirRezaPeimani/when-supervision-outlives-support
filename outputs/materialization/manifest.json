@@ -1,0 +1,13 @@
+{
+  "status": "complete",
+  "config": "configs/materialization.json",
+  "source_config_sha256": "566b64f010917630a535c03e20f01bc4b9ff44092946b40fc2ac6bc54c7fc5ed",
+  "portable_config_sha256": "731706ca509e884f43cac78ca4c17fbb07b760181cfb2f26d94f54793ae70892",
+  "portable_change": "repository-relative data and tokenizer paths only",
+  "v1_edges_sha256": "638615ea59466ae4e5401c5887d8ed56fdcb8f22200332124ba3d7717b85096a",
+  "conversation_rows": 36760,
+  "materialized_examples": 41110,
+  "serialized_examples_validated": 34128,
+  "serialized_validation_relation": "audit_edges_for_view/causal_attention_relation",
+  "paid_compute_cad": 0.0
+}

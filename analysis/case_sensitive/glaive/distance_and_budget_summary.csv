@@ -1,0 +1,2 @@
+corpus,edges,distance_median,distance_p95,contiguous_budget_median,contiguous_budget_p95,keep_end_budget_median,keep_end_budget_p95
+glaive,15090,56.0,128.0,67.0,144.0,147.0,371.0

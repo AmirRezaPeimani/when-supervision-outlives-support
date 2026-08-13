@@ -1,0 +1,102 @@
+{
+  "status": "complete",
+  "analysis_status": "post-hoc; descriptive only; does not replace the frozen primary endpoint",
+  "trigger": "Observed VALUE:<target> rather than VALUE=<target> in one 0% corruption clean-test optimization seed",
+  "definition": {
+    "target_substring": "verbatim target occurs anywhere in raw_generation",
+    "stale_substring": "verbatim stale_value occurs anywhere in raw_generation"
+  },
+  "rows": 14400,
+  "evaluations": 24,
+  "primary_endpoint_unchanged": true,
+  "aggregate": [
+    {
+      "split": "conflict",
+      "corruption": 0,
+      "seeds": 3,
+      "primary_exact_mean": 0.9988888888888888,
+      "primary_exact_seed_sd": 0.0009622504486494145,
+      "target_substring_mean": 0.9988888888888888,
+      "target_substring_seed_sd": 0.0009622504486494145,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "conflict",
+      "corruption": 25,
+      "seeds": 3,
+      "primary_exact_mean": 1.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 1.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "conflict",
+      "corruption": 50,
+      "seeds": 3,
+      "primary_exact_mean": 1.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 1.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "conflict",
+      "corruption": 100,
+      "seeds": 3,
+      "primary_exact_mean": 0.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 0.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "test",
+      "corruption": 0,
+      "seeds": 3,
+      "primary_exact_mean": 0.7727777777777778,
+      "primary_exact_seed_sd": 0.3877905123665114,
+      "target_substring_mean": 0.9938888888888888,
+      "target_substring_seed_sd": 0.006735753140545661,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "test",
+      "corruption": 25,
+      "seeds": 3,
+      "primary_exact_mean": 1.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 1.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "test",
+      "corruption": 50,
+      "seeds": 3,
+      "primary_exact_mean": 1.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 1.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    },
+    {
+      "split": "test",
+      "corruption": 100,
+      "seeds": 3,
+      "primary_exact_mean": 0.0,
+      "primary_exact_seed_sd": 0.0,
+      "target_substring_mean": 0.0,
+      "target_substring_seed_sd": 0.0,
+      "stale_substring_mean": 0.0,
+      "stale_substring_seed_sd": 0.0
+    }
+  ]
+}

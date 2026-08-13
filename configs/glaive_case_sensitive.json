@@ -1,0 +1,12 @@
+{
+  "dataset": "glaiveai/glaive-function-calling-v2",
+  "revision": "e7f4b6456019f5d8bcb991ef0dd67d8ff23221ac",
+  "license": "apache-2.0",
+  "selected_path": "data/processed/glaive_selected.parquet",
+  "edge_path": "outputs/raw/glaive_support_edges.jsonl",
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "max_lengths": [256, 512, 1024, 2048, 4096, 8192],
+  "policies": ["bfd_split", "wrapped_single_batch"],
+  "oracle_case_sensitive": true,
+  "oracle_definition": "Exact-case source-to-target textual identity with exact row and message provenance"
+}

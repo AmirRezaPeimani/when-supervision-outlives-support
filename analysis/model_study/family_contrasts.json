@@ -1,0 +1,66 @@
+{
+  "test": {
+    "order": {
+      "exact_100_minus_0": -0.66,
+      "value_nll_100_minus_0": 1.1559849909449378,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "error": {
+      "exact_100_minus_0": -0.6633333333333333,
+      "value_nll_100_minus_0": 1.1889337070561352,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "inventory": {
+      "exact_100_minus_0": -0.7566666666666667,
+      "value_nll_100_minus_0": 1.4352118989242977,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "route": {
+      "exact_100_minus_0": -0.9966666666666667,
+      "value_nll_100_minus_0": 1.0541846077778974,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "ticket": {
+      "exact_100_minus_0": -0.6666666666666666,
+      "value_nll_100_minus_0": 1.229756557083915,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "checksum": {
+      "exact_100_minus_0": -0.8933333333333332,
+      "value_nll_100_minus_0": 1.4015763918113529,
+      "copied_stale_100_minus_0": 0.0
+    }
+  },
+  "conflict": {
+    "order": {
+      "exact_100_minus_0": -1.0,
+      "value_nll_100_minus_0": 1.0301844011755004,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "error": {
+      "exact_100_minus_0": -1.0,
+      "value_nll_100_minus_0": 0.9870112261444683,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "inventory": {
+      "exact_100_minus_0": -1.0,
+      "value_nll_100_minus_0": 1.2329044823524842,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "route": {
+      "exact_100_minus_0": -0.9966666666666667,
+      "value_nll_100_minus_0": 0.9281511019815791,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "ticket": {
+      "exact_100_minus_0": -1.0,
+      "value_nll_100_minus_0": 0.9337053870620912,
+      "copied_stale_100_minus_0": 0.0
+    },
+    "checksum": {
+      "exact_100_minus_0": -0.9966666666666667,
+      "value_nll_100_minus_0": 1.117618796510801,
+      "copied_stale_100_minus_0": 0.0
+    }
+  }
+}

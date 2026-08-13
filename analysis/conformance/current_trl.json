@@ -1,0 +1,58 @@
+{
+  "trl_version": "1.9.2",
+  "rows": 400,
+  "input_id_exact": 400,
+  "input_id_exact_fraction": 1.0,
+  "label_exact": 400,
+  "label_exact_fraction": 1.0,
+  "mismatches": [],
+  "packing_provenance_checks": {
+    "bfd": {
+      "generated_examples": 4,
+      "attention_groups": 4,
+      "retained_tokens": 20,
+      "effective_supervised_tokens": 8,
+      "packed_lengths": [
+        6,
+        6,
+        5,
+        3
+      ],
+      "intervals_cover_all_retained_tokens": true
+    },
+    "bfd_split": {
+      "generated_examples": 5,
+      "attention_groups": 6,
+      "retained_tokens": 27,
+      "effective_supervised_tokens": 13,
+      "packed_lengths": [
+        6,
+        6,
+        5,
+        5,
+        5
+      ],
+      "intervals_cover_all_retained_tokens": true
+    },
+    "wrapped": {
+      "generated_examples": 5,
+      "attention_groups": 5,
+      "retained_tokens": 27,
+      "effective_supervised_tokens": 12,
+      "packed_lengths": [
+        6,
+        6,
+        6,
+        6,
+        3
+      ],
+      "intervals_cover_all_retained_tokens": true
+    }
+  },
+  "source_hashes": {
+    "data_utils.py": "5791243fe2b0b01ed4df56e6041d6f9932ad873c88eb102a300846bf86ede3b4",
+    "trainer/sft_trainer.py": "e59b309d1325d13edae40f7f42fa1996ff89ee936177e06e542a8ae9e387c65c",
+    "trainer/sft_config.py": "843f531bc70735d75c38990bd5a90e8946056469c60cf3507ec4d3c8c98ac96f"
+  },
+  "numpy_version": "2.5.1"
+}

@@ -1,0 +1,3 @@
+corpus,edges,distance_median,distance_p95,contiguous_budget_median,contiguous_budget_p95,keep_end_budget_median,keep_end_budget_p95
+retool,2047,26.0,117.69999999999982,32.0,125.0,288.0,1756.6999999999998
+toolace,7577,184.0,900.3999999999996,194.0,913.3999999999996,711.0,2493.999999999998

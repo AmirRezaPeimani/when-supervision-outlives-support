@@ -1,0 +1,28 @@
+{
+  "status": "generated_and_sealed",
+  "config_sha256": "0fcbc78c70534d5efe9a6e71e4fbb90fec2480cbe69ea44a81a186109cd87920",
+  "counts": {
+    "train_corruption_0": 1800,
+    "train_corruption_25": 1800,
+    "train_corruption_50": 1800,
+    "train_corruption_100": 1800,
+    "dev": 360,
+    "test": 600,
+    "conflict": 600
+  },
+  "hashes": {
+    "conflict.jsonl": "dfabba39cfbb8373f34db26113d691febf30630d9ec0123dcea562cc53c29e03",
+    "dev.jsonl": "3ca412207ed26c4ff0a9b50ac0ccc52f0a006eb7e27783b9895ed5091adf7468",
+    "test.jsonl": "181cc9e7d9cc901daa6d202c8973c02afdba142ece3591e12a325171d2b84d73",
+    "train_corruption_0.jsonl": "894add6fd22b9dd7fede73a0b30ac1600a41eab12326c6124997d65345f1fb8e",
+    "train_corruption_100.jsonl": "5db74ba25997a7e2f09b941360364c35b14aaf1c4b53e7b33566b49f82e382a1",
+    "train_corruption_25.jsonl": "cc2849e86a27e3ae6fb0724e2d132f322cb3d51295b72a2d571a08841f7462af",
+    "train_corruption_50.jsonl": "afb70e80919ba1d0550ef4dcd24f2531130d172037ec2e35b34d89721eb5ac99"
+  },
+  "split_rule": "disjoint key namespaces and independently generated opaque values",
+  "sealed_before_gate": [
+    "test.jsonl",
+    "conflict.jsonl"
+  ],
+  "paid_compute_cad": 0.0
+}

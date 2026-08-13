@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "config": "configs/action_repair.json",
+  "source_config_sha256": "b848c6557323a7df2baf0dab69339ddeee21fe885b01a80b0a5e9ea1e87d8be4",
+  "portable_config_sha256": "dfc7eaaad8a44cb0e3b740812b50852c68d52af0930f8d7bcdd2e2fd9ccbf124",
+  "portable_change": "repository-relative data and tokenizer paths only",
+  "v1_edges_sha256": "638615ea59466ae4e5401c5887d8ed56fdcb8f22200332124ba3d7717b85096a",
+  "target_policy_rows": 107340,
+  "paid_compute_cad": 0.0
+}

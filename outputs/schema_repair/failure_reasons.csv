@@ -1,0 +1,71 @@
+corpus,mode,max_length,reason,failures
+retool,invoked_tool,256,closure exceeds budget,1073
+retool,invoked_tool,256,invoked tool not parsed,94
+retool,invoked_tool,256,one or more invoked tools not found in structured declarations,187
+retool,invoked_tool,512,closure exceeds budget,703
+retool,invoked_tool,512,invoked tool not parsed,94
+retool,invoked_tool,512,one or more invoked tools not found in structured declarations,187
+retool,invoked_tool,1024,closure exceeds budget,331
+retool,invoked_tool,1024,invoked tool not parsed,94
+retool,invoked_tool,1024,one or more invoked tools not found in structured declarations,187
+retool,invoked_tool,2048,closure exceeds budget,127
+retool,invoked_tool,2048,invoked tool not parsed,94
+retool,invoked_tool,2048,one or more invoked tools not found in structured declarations,187
+retool,parameter_slice,256,closure exceeds budget,1073
+retool,parameter_slice,256,invoked tool not parsed,94
+retool,parameter_slice,256,one or more invoked tools not found in structured declarations,187
+retool,parameter_slice,512,closure exceeds budget,703
+retool,parameter_slice,512,invoked tool not parsed,94
+retool,parameter_slice,512,one or more invoked tools not found in structured declarations,187
+retool,parameter_slice,1024,closure exceeds budget,331
+retool,parameter_slice,1024,invoked tool not parsed,94
+retool,parameter_slice,1024,one or more invoked tools not found in structured declarations,187
+retool,parameter_slice,2048,closure exceeds budget,127
+retool,parameter_slice,2048,invoked tool not parsed,94
+retool,parameter_slice,2048,one or more invoked tools not found in structured declarations,187
+retool,whole_schema,256,closure exceeds budget,1260
+retool,whole_schema,256,invoked tool not parsed,94
+retool,whole_schema,512,closure exceeds budget,794
+retool,whole_schema,512,invoked tool not parsed,94
+retool,whole_schema,1024,closure exceeds budget,374
+retool,whole_schema,1024,invoked tool not parsed,94
+retool,whole_schema,2048,closure exceeds budget,138
+retool,whole_schema,2048,invoked tool not parsed,94
+toolace,invoked_tool,256,closure exceeds budget,5844
+toolace,invoked_tool,256,inline or structured tool declarations unavailable,56
+toolace,invoked_tool,256,invoked tool not parsed,563
+toolace,invoked_tool,256,one or more invoked tools not found in schema list,191
+toolace,invoked_tool,512,closure exceeds budget,1395
+toolace,invoked_tool,512,inline or structured tool declarations unavailable,56
+toolace,invoked_tool,512,invoked tool not parsed,563
+toolace,invoked_tool,512,one or more invoked tools not found in schema list,191
+toolace,invoked_tool,1024,closure exceeds budget,36
+toolace,invoked_tool,1024,inline or structured tool declarations unavailable,56
+toolace,invoked_tool,1024,invoked tool not parsed,563
+toolace,invoked_tool,1024,one or more invoked tools not found in schema list,191
+toolace,invoked_tool,2048,inline or structured tool declarations unavailable,56
+toolace,invoked_tool,2048,invoked tool not parsed,563
+toolace,invoked_tool,2048,one or more invoked tools not found in schema list,191
+toolace,parameter_slice,256,closure exceeds budget,5575
+toolace,parameter_slice,256,inline or structured tool declarations unavailable,56
+toolace,parameter_slice,256,invoked tool not parsed,563
+toolace,parameter_slice,256,one or more invoked tools not found in schema list,191
+toolace,parameter_slice,512,closure exceeds budget,1228
+toolace,parameter_slice,512,inline or structured tool declarations unavailable,56
+toolace,parameter_slice,512,invoked tool not parsed,563
+toolace,parameter_slice,512,one or more invoked tools not found in schema list,191
+toolace,parameter_slice,1024,closure exceeds budget,26
+toolace,parameter_slice,1024,inline or structured tool declarations unavailable,56
+toolace,parameter_slice,1024,invoked tool not parsed,563
+toolace,parameter_slice,1024,one or more invoked tools not found in schema list,191
+toolace,parameter_slice,2048,inline or structured tool declarations unavailable,56
+toolace,parameter_slice,2048,invoked tool not parsed,563
+toolace,parameter_slice,2048,one or more invoked tools not found in schema list,191
+toolace,whole_schema,256,closure exceeds budget,6977
+toolace,whole_schema,256,invoked tool not parsed,563
+toolace,whole_schema,512,closure exceeds budget,4857
+toolace,whole_schema,512,invoked tool not parsed,563
+toolace,whole_schema,1024,closure exceeds budget,674
+toolace,whole_schema,1024,invoked tool not parsed,563
+toolace,whole_schema,2048,closure exceeds budget,5
+toolace,whole_schema,2048,invoked tool not parsed,563

@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "source_rows": 112960,
+  "eligible_rows": 39591,
+  "selected_rows": 5000,
+  "selected_edges": 15541,
+  "raw_sha256": "7e7e32f0466699513b38923bc4991858e192c9274df22e243b9e77eb2775b6e8",
+  "selected_sha256": "06c3adf24f8979c1e9f475754ab958a1c377504aa14590ee9f71a81ad98b8cd5",
+  "edges_sha256": "d84c29433cac4e70102ca2cd8eaaa3f01461e7748d766db4a426a662f547c562",
+  "paid_compute_cad": 0.0
+}

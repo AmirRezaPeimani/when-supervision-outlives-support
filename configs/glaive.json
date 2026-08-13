@@ -1,0 +1,16 @@
+{
+  "dataset": "glaiveai/glaive-function-calling-v2",
+  "revision": "e7f4b6456019f5d8bcb991ef0dd67d8ff23221ac",
+  "license": "apache-2.0",
+  "raw_parquet": "data/raw/glaive_function_calling_v2/train-0000.parquet",
+  "raw_sha256": "7e7e32f0466699513b38923bc4991858e192c9274df22e243b9e77eb2775b6e8",
+  "eligible_sample_size": 5000,
+  "selection_seed": 20260808,
+  "selection_rule": "lowest SHA256(seed:row_id) among conversations with at least one precision-first observation-to-assistant edge",
+  "selected_path": "data/processed/glaive_selected.parquet",
+  "edge_path": "outputs/raw/glaive_support_edges.jsonl",
+  "tokenizer_path": "models/qwen2.5-0.5b-instruct",
+  "max_lengths": [256, 512, 1024, 2048, 4096, 8192],
+  "policies": ["keep_start", "bfd", "bfd_split", "wrapped", "wrapped_single_batch", "drop_overlength", "keep_end"],
+  "oracle_case_sensitive": false
+}

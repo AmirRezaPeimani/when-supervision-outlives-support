@@ -1,0 +1,18 @@
+{
+  "table1_contemporary_512.csv": 1017,
+  "table1_contemporary_512.tex": 1243,
+  "table2_materialization_512.csv": 574,
+  "table2_materialization_512.tex": 753,
+  "table3_schema_repair.csv": 355,
+  "table3_schema_repair.tex": 510,
+  "table4_model_study.csv": 445,
+  "table4_model_study.tex": 578,
+  "tableS1_glaive_provenance.csv": 177,
+  "tableS1_glaive_provenance.tex": 268,
+  "tableS2_case_sensitive_512.csv": 607,
+  "tableS2_case_sensitive_512.tex": 776,
+  "tableS2_model_families.csv": 479,
+  "tableS2_model_families.tex": 668,
+  "tableS3_case_sensitive_all_budgets.csv": 3049,
+  "tableS3_case_sensitive_all_budgets.tex": 4053
+}
