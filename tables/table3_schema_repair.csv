@@ -1,7 +1,7 @@
-Corpus,Method,256,512,"1,024","2,048"
+Corpus,Schema content,256,512,"1,024","2,048"
+ReTool,Full schema,0.00\%,34.42\%,65.44\%,82.87\%
 ReTool,Invoked tool,0.00\%,27.33\%,54.80\%,69.87\%
-ReTool,Parameter slice,0.00\%,27.33\%,54.80\%,69.87\%
-ReTool,Whole schema,0.00\%,34.42\%,65.44\%,82.87\%
+ReTool,Referenced parameters,0.00\%,27.33\%,54.80\%,69.87\%
+ToolACE,Full schema,0.67\%,28.60\%,83.70\%,92.52\%
 ToolACE,Invoked tool,12.34\%,70.95\%,88.86\%,89.33\%
-ToolACE,Parameter slice,15.89\%,73.15\%,88.99\%,89.33\%
-ToolACE,Whole schema,0.67\%,28.60\%,83.70\%,92.52\%
+ToolACE,Referenced parameters,15.89\%,73.15\%,88.99\%,89.33\%

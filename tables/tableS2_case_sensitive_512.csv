@@ -1,6 +1,6 @@
-Corpus,Policy,Strict unsupported / trained,Strict conditional,Affected / all conv.,Nominal objective,Primary conditional,$\Delta$ conditional
-Glaive,BFD-split,"430/6,532",6.58\%,"429/5,000",1.193\%,6.43\%,+0.15 pp
-Glaive,Wrapped (intended),"810/6,489",12.48\%,"810/5,000",2.018\%,12.41\%,+0.07 pp
+Corpus,Policy,Separated / retained,Separation rate,Affected conversations,Affected assistant tokens,Primary rate,$\Delta$
+Glaive-FC,BFD-split,"430/6,532",6.58\%,"429/5,000",1.193\%,6.43\%,+0.15 pp
+Glaive-FC,Wrapped (intended),"810/6,489",12.48\%,"810/5,000",2.018\%,12.41\%,+0.07 pp
 ReTool,BFD-split,"313/1,578",19.84\%,"299/2,000",0.125\%,19.61\%,+0.22 pp
 ReTool,Wrapped (intended),"321/1,577",20.36\%,"304/2,000",0.134\%,20.24\%,+0.12 pp
 ToolACE,BFD-split,350/902,38.80\%,"300/11,300",2.079\%,38.66\%,+0.14 pp

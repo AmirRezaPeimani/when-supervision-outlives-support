@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "split": "conflict",
+  "split_sha256": "dfabba39cfbb8373f34db26113d691febf30630d9ec0123dcea562cc53c29e03",
+  "records": 600,
+  "base_only": false,
+  "adapter": "outputs/model_study/corruption_50_revision2_seed20260808/adapter",
+  "batch_size": 8,
+  "mps_fp16": true,
+  "exact": 1.0,
+  "copied_stale": 0.0,
+  "value_token_nll": 0.0001846597317216947,
+  "whole_target_nll": 0.0001836550821826677,
+  "device": "mps",
+  "compute_dtype": "torch.float16",
+  "seconds": 203.36744379997253,
+  "paid_compute_cad": 0.0
+}

@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "verified-support-reachability"
+name = "training-on-broken-contexts"
 version = "0.2.0"
-description = "Post-render audits and support-preserving materialization for tool-augmented SFT"
+description = "Source-loss auditing and training-example reconstruction for tool-augmented LLM post-training"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"

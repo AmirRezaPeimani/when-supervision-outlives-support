@@ -10,3 +10,4 @@ matplotlib==3.10.5
 transformers==5.14.1
 trl==1.9.2
 peft==0.20.0
+Jinja2==3.1.6

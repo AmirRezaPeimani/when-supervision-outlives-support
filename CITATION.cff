@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the accompanying manuscript."
-title: "When Supervision Outlives Its Support"
+title: "Training on Broken Contexts: Source Loss and Repair in Tool-Augmented LLM Post-Training"
 type: software
 version: 0.2.0
 repository-code: "https://github.com/AmirRezaPeimani/when-supervision-outlives-support"
@@ -8,14 +8,14 @@ authors:
   - family-names: Peimani
     given-names: Amir Reza
     email: amir.peimani@utoronto.ca
-    affiliation: University of Toronto
+    affiliation: "Institute of Biomedical Engineering, University of Toronto"
 license: Apache-2.0
 preferred-citation:
   type: article
-  title: "When Supervision Outlives Its Support: Post-Render Integrity in Tool-Augmented Fine-Tuning"
+  title: "Training on Broken Contexts: Source Loss and Repair in Tool-Augmented LLM Post-Training"
   authors:
     - family-names: Peimani
       given-names: Amir Reza
       email: amir.peimani@utoronto.ca
-      affiliation: University of Toronto
+      affiliation: "Institute of Biomedical Engineering, University of Toronto"
   year: 2026

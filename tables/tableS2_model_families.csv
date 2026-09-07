@@ -1,4 +1,4 @@
-Family,Clean exact 0\%,Clean exact 100\%,Clean NLL 0\%,Clean NLL 100\%,Conflict exact 0\%,Conflict exact 100\%,Conflict stale copy 100\%
+Family,"Clean exact, 0\% removed","Clean exact, 100\% removed","Clean NLL, 0\% removed","Clean NLL, 100\% removed","Conflict exact, 0\% removed","Conflict exact, 100\% removed","Conflict stale copy, 100\% removed"
 Order,66.00\%,0.00\%,0.001,1.157,100.00\%,0.00\%,0.00\%
 Error,66.33\%,0.00\%,0.000,1.189,100.00\%,0.00\%,0.00\%
 Inventory,75.67\%,0.00\%,0.000,1.435,100.00\%,0.00\%,0.00\%

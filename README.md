@@ -1,22 +1,23 @@
-# When Supervision Outlives Its Support: Post-Render Integrity in Tool-Augmented Fine-Tuning
+# Training on Broken Contexts: Source Loss and Repair in Tool-Augmented LLM Post-Training
 
-Research repository for **“When Supervision Outlives Its Support: Post-Render Integrity in Tool-Augmented Fine-Tuning.”** The project audits whether a supervised target still has a complete, provenance-matched source that is visible through the final causal attention relation after rendering, truncation, and packing. It also implements grouped closure for observation-to-answer targets, schema-aware repair for tool calls, packing-conformance checks, and a controlled support-corruption study.
+Research repository for **“Training on Broken Contexts: Source Loss and Repair in Tool-Augmented LLM Post-Training.”** The project tracks rendered tokens through sequence construction to test whether matched assistant targets remain with their recorded tool observations. It includes grouped training-example reconstruction, tool-call schema reduction, packing-conformance checks, and a controlled source-removal experiment.
 
 ## Key results
 
-At a 512-token budget, BFD-split leaves 353/913 ToolACE targets unsupported (38.66%), 315/1,606 ReTool targets unsupported (19.61%), and 431/6,698 Glaive targets unsupported (6.43%). ToolACE grouped closure retains 875/918 verified targets without duplicating source tokens. For ToolACE tool calls, retaining a parameter slice preserves 73.15% of targets, compared with 28.60% when retaining the whole schema.
+At a 512-token budget, BFD-split leaves 353/913 ToolACE targets separated from their recorded sources (38.66%), 315/1,606 ReTool targets separated from their recorded sources (19.61%), and 431/6,698 Glaive-FC targets separated from their recorded sources (6.43%). ToolACE grouped reconstruction retains 875/918 matched targets without duplicating source tokens. For ToolACE tool calls, retaining a referenced parameters preserves 73.15% of targets, compared with 28.60% when retaining the full schema.
 
 For BFD and BFD-split, each emitted `seq_lengths` fragment is treated as a separate causal-attention group; wrapped packing treats each fixed-length packed block as one attention group.
 
 ## Repository structure
 
-- `src/vsr/`: rendering, provenance, policy simulation, auditing, materialization, and schema repair.
+- `src/vsr/`: rendering, provenance, policy simulation, auditing, training-example reconstruction, and schema reduction.
 - `scripts/`: public data/model acquisition, analyses, figure/table generation, conformance probes, and controlled-model utilities.
 - `configs/`: frozen scientific configurations with repository-relative paths.
 - `tests/`: focused regression tests, including causal source-before-target validation.
-- `analysis/` and `outputs/`: compact frozen evidence for the reported corpus, sensitivity, materialization, schema-repair, conformance, and model-study results.
-- `data/`: the released Glaive evaluation subset and deterministic controlled-study records; ToolACE and ReTool are downloaded separately.
+- `analysis/` and `outputs/`: compact frozen evidence for the reported corpus, sensitivity, reconstruction, schema-coverage, conformance, and model-study results.
+- `data/`: the released Glaive-FC evaluation subset and deterministic controlled-study records; ToolACE and ReTool are downloaded separately.
 - `figures/` and `tables/`: final paper-facing outputs.
+- `paper/`: the current manuscript, bibliography, and required Springer files; assets are in the repository figure and table directories.
 - `provenance/`: exact public identifiers, revisions, hashes, and license information.
 
 ## Installation
@@ -45,7 +46,7 @@ The study uses the public datasets `Team-ACE/ToolACE`, `swordfaith/ReTool-SFT-mu
 .venv/bin/python scripts/download_tokenizer.py
 ```
 
-The included Glaive subset can be reconstructed from its public release with:
+The included Glaive-FC subset can be reconstructed from its public release with:
 
 ```bash
 .venv/bin/python scripts/download_data.py glaive
@@ -67,7 +68,7 @@ PYTHONPATH=src .venv/bin/python scripts/analyze_phase1.py \
   --output-dir analysis/corpus_audit/toolace_retool_reproduced
 ```
 
-Glaive corpus audit:
+Glaive-FC corpus audit:
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/run_phase1_glaive.py \
@@ -78,7 +79,7 @@ PYTHONPATH=src .venv/bin/python scripts/analyze_phase1.py \
   --output-dir analysis/corpus_audit/glaive_reproduced
 ```
 
-Grouped materialization and schema repair:
+Grouped reconstruction and schema coverage:
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/run_materialization.py \
@@ -101,11 +102,11 @@ PYTHONPATH=src .venv/bin/python scripts/verify_artifact.py
 PYTHONPATH=src .venv/bin/python -m pytest -q
 ```
 
-The focused suite covers exact provenance, attention-group isolation, causal source-before-target ordering, complete-target materialization, schema validity, split separation, and the documented TRL 1.9.2 wrapped behavior.
+The focused suite covers exact provenance, attention-group isolation, causal source-before-target ordering, complete-target reconstruction, schema validity, split separation, and the documented TRL 1.9.2 wrapped behavior.
 
 ## Compute and runtime
 
-The focused tests and frozen-output verification are lightweight CPU jobs. Full corpus rendering and bootstrap analyses are CPU-only but can take several hours. The optional controlled-model matrix trains LoRA adapters for Qwen2.5-0.5B-Instruct and was run with float16 on Apple MPS. No paid compute is required for the corpus audits or materialization analyses.
+The focused tests and frozen-output verification are lightweight CPU jobs. Full corpus rendering and bootstrap analyses are CPU-only but can take several hours. The optional controlled-model matrix trains LoRA adapters for Qwen2.5-0.5B-Instruct and was run with float16 on Apple MPS. No paid compute is required for the corpus audits or reconstruction analyses.
 
 ## Citation
 

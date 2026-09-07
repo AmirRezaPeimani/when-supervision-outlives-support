@@ -1,2 +1,2 @@
-Dataset,Revision,License,Source rows,Eligible rows,Frozen sample,Candidate edges
+Dataset,Revision,License,Release rows,Eligible rows,Evaluation sample,Candidate relations
 glaiveai/glaive-function-calling-v2,e7f4b6456019,Apache-2.0,"112,960","39,591","5,000","15,541"

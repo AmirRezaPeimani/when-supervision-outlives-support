@@ -9,15 +9,15 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "tables"
-CORPUS = {"toolace": "ToolACE", "retool": "ReTool", "glaive": "Glaive"}
+CORPUS = {"toolace": "ToolACE", "retool": "ReTool", "glaive": "Glaive-FC"}
 POLICY = {
     "bfd": "BFD",
     "bfd_split": "BFD-split",
     "wrapped_single_batch": "Wrapped (intended)",
     "keep_end": "Keep-end (historical)",
-    "source_target_round": "Source+target round",
-    "single_target_closure": "Single-target closure",
-    "grouped_closure": "Grouped closure",
+    "source_target_round": "Complete rounds",
+    "single_target_closure": "One example per target",
+    "grouped_closure": "Grouped",
 }
 
 
@@ -49,11 +49,11 @@ def contemporary() -> None:
             {
                 "Corpus": CORPUS[row.corpus],
                 "Policy": POLICY[row.policy],
-                "Unsupported / trained": f"{row.unsupported_units:,}/{row.trained_units:,}",
-                "Conditional": percent(row.conditional_prevalence),
-                "Affected / all conversations": f"{row.affected_conversations:,}/{row.total_conversations:,} ({percent(row.conversation_incidence)})",
-                "Nominal objective": percent(row.nominal_objective_exposure, 3),
-                "Supervision retained": percent(row.supervised_token_retention),
+                "Matched targets retained": f"{row.trained_units:,}/{row.oracle_units:,}",
+                "Separated": f"{row.unsupported_units:,}/{row.trained_units:,} ({percent(row.conditional_prevalence)})",
+                "Affected conversations": f"{row.affected_conversations:,}/{row.total_conversations:,} ({percent(row.conversation_incidence)})",
+                "Affected assistant tokens": percent(row.nominal_objective_exposure, 3),
+                "Assistant supervision retained": percent(row.supervised_token_retention),
             }
         )
     save(pd.DataFrame(rows), "table1_contemporary_512")
@@ -67,12 +67,12 @@ def case_sensitive() -> None:
             {
                 "Corpus": CORPUS[row.corpus],
                 "Policy": POLICY[row.policy],
-                "Strict unsupported / trained": f"{row.unsupported_units_strict:,}/{row.trained_units_strict:,}",
-                "Strict conditional": percent(row.conditional_prevalence_strict),
-                "Affected / all conv.": f"{row.affected_conversations_strict:,}/{row.total_conversations_strict:,}",
-                "Nominal objective": percent(row.nominal_objective_exposure_strict, 3),
-                "Primary conditional": percent(row.conditional_prevalence_primary),
-                "$\\Delta$ conditional": f"{row.delta_conditional_percentage_points:+.2f} pp",
+                "Separated / retained": f"{row.unsupported_units_strict:,}/{row.trained_units_strict:,}",
+                "Separation rate": percent(row.conditional_prevalence_strict),
+                "Affected conversations": f"{row.affected_conversations_strict:,}/{row.total_conversations_strict:,}",
+                "Affected assistant tokens": percent(row.nominal_objective_exposure_strict, 3),
+                "Primary rate": percent(row.conditional_prevalence_primary),
+                "$\\Delta$": f"{row.delta_conditional_percentage_points:+.2f} pp",
             }
         )
     save(pd.DataFrame(rows), "tableS2_case_sensitive_512")
@@ -86,11 +86,11 @@ def case_sensitive() -> None:
                 "Corpus": CORPUS[row.corpus],
                 "Policy": POLICY[row.policy],
                 "Budget": f"{row.max_length:,}",
-                "Strict U/T": f"{row.unsupported_units_strict:,}/{row.trained_units_strict:,}",
-                "Strict cond.": percent(row.conditional_prevalence_strict),
-                "Affected": f"{row.affected_conversations_strict:,}/{row.total_conversations_strict:,}",
-                "Nominal": percent(row.nominal_objective_exposure_strict, 3),
-                "Primary cond.": percent(row.conditional_prevalence_primary),
+                "Separated / retained": f"{row.unsupported_units_strict:,}/{row.trained_units_strict:,}",
+                "Separation rate": percent(row.conditional_prevalence_strict),
+                "Affected conversations": f"{row.affected_conversations_strict:,}/{row.total_conversations_strict:,}",
+                "Affected assistant tokens": percent(row.nominal_objective_exposure_strict, 3),
+                "Primary rate": percent(row.conditional_prevalence_primary),
                 "$\\Delta$": f"{row.delta_conditional_percentage_points:+.2f} pp",
             }
         )
@@ -101,7 +101,7 @@ def case_sensitive() -> None:
         escape=False,
         longtable=True,
         column_format="lllrrrrrr",
-        caption="Exact-case oracle sensitivity at every evaluated budget.",
+        caption="Case-sensitive matching at every evaluated token budget.",
         label="tab:case-all",
     )
     (OUT / "tableS3_case_sensitive_all_budgets.tex").write_text(latex)
@@ -118,12 +118,12 @@ def materialization() -> None:
         rows.append(
             {
                 "Corpus": CORPUS[row.corpus],
-                "Materializer": POLICY[row.policy],
-                "Targets retained": f"{row.retained_targets:,}/{row.valid_targets:,}",
-                "Target retention": percent(row.target_retention),
-                "Target sup. retained": percent(row.target_supervision_ratio),
+                "Reconstruction": POLICY[row.policy],
+                "Matched targets retained": f"{row.retained_targets:,}/{row.valid_targets:,}",
+                "Retention": percent(row.target_retention),
+                "Target supervision retained": percent(row.target_supervision_ratio),
                 "Input-token ratio": percent(row.input_token_ratio),
-                "Examples / source conv.": f"{row.examples_per_conversation:.3f}",
+                "Examples / conversation": f"{row.examples_per_conversation:.3f}",
                 "Duplicate source tokens": f"{row.duplicate_source_tokens:,}",
             }
         )
@@ -134,11 +134,13 @@ def schema() -> None:
     data = pd.read_csv(ROOT / "outputs/schema_repair/summary.csv")
     pivot = data.pivot(index=["corpus", "mode"], columns="max_length", values="repair_rate").reset_index()
     pivot["Corpus"] = pivot.corpus.map(CORPUS)
-    pivot["Method"] = pivot["mode"].map(
-        {"whole_schema": "Whole schema", "invoked_tool": "Invoked tool", "parameter_slice": "Parameter slice"}
+    pivot["Schema content"] = pivot["mode"].map(
+        {"whole_schema": "Full schema", "invoked_tool": "Invoked tool", "parameter_slice": "Referenced parameters"}
     )
-    output = pivot[["Corpus", "Method", 256, 512, 1024, 2048]].copy()
-    output.columns = ["Corpus", "Method", "256", "512", "1,024", "2,048"]
+    pivot["order"] = pivot["mode"].map({"whole_schema": 0, "invoked_tool": 1, "parameter_slice": 2})
+    pivot = pivot.sort_values(["corpus", "order"])
+    output = pivot[["Corpus", "Schema content", 256, 512, 1024, 2048]].copy()
+    output.columns = ["Corpus", "Schema content", "256", "512", "1,024", "2,048"]
     for column in ["256", "512", "1,024", "2,048"]:
         output[column] = output[column].map(percent)
     save(output, "table3_schema_repair")
@@ -152,10 +154,10 @@ def provenance() -> None:
                 "Dataset": "glaiveai/glaive-function-calling-v2",
                 "Revision": "e7f4b6456019",
                 "License": "Apache-2.0",
-                "Source rows": f"{manifest['source_rows']:,}",
+                "Release rows": f"{manifest['source_rows']:,}",
                 "Eligible rows": f"{manifest['eligible_rows']:,}",
-                "Frozen sample": f"{manifest['selected_rows']:,}",
-                "Candidate edges": f"{manifest['selected_edges']:,}",
+                "Evaluation sample": f"{manifest['selected_rows']:,}",
+                "Candidate relations": f"{manifest['selected_edges']:,}",
             }
         ]
     )
@@ -175,7 +177,7 @@ def model_study() -> None:
         conflict = pd.read_csv(base_conflict).set_index("family").loc["ALL"]
         rows.append(
             {
-                "Unsupported training": "Unadapted base",
+                "Condition": "Unadapted base",
                 "Clean exact": f"{100*test.exact:.2f}\\%",
                 "Clean value NLL": f"{test.value_token_nll:.3f}",
                 "Conflict exact": f"{100*conflict.exact:.2f}\\%",
@@ -187,7 +189,7 @@ def model_study() -> None:
         conflict = data.loc[("conflict", corruption)]
         rows.append(
             {
-                "Unsupported training": f"{corruption}\\%",
+                "Condition": f"{corruption}\\% removed",
                 "Clean exact": f"{100*test.exact_mean:.2f} $\\pm$ {100*test.exact_seed_sd:.2f}\\%",
                 "Clean value NLL": f"{test.value_token_nll_mean:.3f} $\\pm$ {test.value_token_nll_seed_sd:.3f}",
                 "Conflict exact": f"{100*conflict.exact_mean:.2f} $\\pm$ {100*conflict.exact_seed_sd:.2f}\\%",
@@ -211,13 +213,13 @@ def model_families() -> None:
         rows.append(
             {
                 "Family": family.title(),
-                "Clean exact 0\\%": percent(test_0.exact_mean),
-                "Clean exact 100\\%": percent(test_100.exact_mean),
-                "Clean NLL 0\\%": f"{test_0.value_token_nll_mean:.3f}",
-                "Clean NLL 100\\%": f"{test_100.value_token_nll_mean:.3f}",
-                "Conflict exact 0\\%": percent(conflict_0.exact_mean),
-                "Conflict exact 100\\%": percent(conflict_100.exact_mean),
-                "Conflict stale copy 100\\%": percent(conflict_100.copied_stale_mean),
+                "Clean exact, 0\\% removed": percent(test_0.exact_mean),
+                "Clean exact, 100\\% removed": percent(test_100.exact_mean),
+                "Clean NLL, 0\\% removed": f"{test_0.value_token_nll_mean:.3f}",
+                "Clean NLL, 100\\% removed": f"{test_100.value_token_nll_mean:.3f}",
+                "Conflict exact, 0\\% removed": percent(conflict_0.exact_mean),
+                "Conflict exact, 100\\% removed": percent(conflict_100.exact_mean),
+                "Conflict stale copy, 100\\% removed": percent(conflict_100.copied_stale_mean),
             }
         )
     save(pd.DataFrame(rows), "tableS2_model_families")

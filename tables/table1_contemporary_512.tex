@@ -1,18 +1,18 @@
 \begin{tabular}{lllllll}
 \toprule
-Corpus & Policy & Unsupported / trained & Conditional & Affected / all conversations & Nominal objective & Supervision retained \\
+Corpus & Policy & Matched targets retained & Separated & Affected conversations & Affected assistant tokens & Assistant supervision retained \\
 \midrule
-Glaive & BFD & 0/6,154 & 0.00\% & 0/5,000 (0.00\%) & 0.000\% & 91.99\% \\
-Glaive & BFD-split & 431/6,698 & 6.43\% & 430/5,000 (8.60\%) & 1.224\% & 99.93\% \\
-Glaive & Keep-end (historical) & 19/6,713 & 0.28\% & 19/5,000 (0.38\%) & 0.103\% & 99.79\% \\
-Glaive & Wrapped (intended) & 826/6,654 & 12.41\% & 826/5,000 (16.52\%) & 2.094\% & 99.81\% \\
-ReTool & BFD & 0/6 & 0.00\% & 0/2,000 (0.00\%) & 0.000\% & 8.10\% \\
-ReTool & BFD-split & 315/1,606 & 19.61\% & 301/2,000 (15.05\%) & 0.125\% & 99.79\% \\
-ReTool & Keep-end (historical) & 153/1,259 & 12.15\% & 153/2,000 (7.65\%) & 0.055\% & 27.10\% \\
-ReTool & Wrapped (intended) & 325/1,606 & 20.24\% & 308/2,000 (15.40\%) & 0.134\% & 99.81\% \\
-ToolACE & BFD & 0/10 & 0.00\% & 0/11,300 (0.00\%) & 0.000\% & 17.23\% \\
-ToolACE & BFD-split & 353/913 & 38.66\% & 302/11,300 (2.67\%) & 2.089\% & 99.79\% \\
-ToolACE & Keep-end (historical) & 185/672 & 27.53\% & 185/11,300 (1.64\%) & 0.963\% & 88.20\% \\
-ToolACE & Wrapped (intended) & 360/913 & 39.43\% & 314/11,300 (2.78\%) & 2.116\% & 99.80\% \\
+Glaive-FC & BFD & 6,154/6,713 & 0/6,154 (0.00\%) & 0/5,000 (0.00\%) & 0.000\% & 91.99\% \\
+Glaive-FC & BFD-split & 6,698/6,713 & 431/6,698 (6.43\%) & 430/5,000 (8.60\%) & 1.224\% & 99.93\% \\
+Glaive-FC & Keep-end (historical) & 6,713/6,713 & 19/6,713 (0.28\%) & 19/5,000 (0.38\%) & 0.103\% & 99.79\% \\
+Glaive-FC & Wrapped (intended) & 6,654/6,713 & 826/6,654 (12.41\%) & 826/5,000 (16.52\%) & 2.094\% & 99.81\% \\
+ReTool & BFD & 6/1,611 & 0/6 (0.00\%) & 0/2,000 (0.00\%) & 0.000\% & 8.10\% \\
+ReTool & BFD-split & 1,606/1,611 & 315/1,606 (19.61\%) & 301/2,000 (15.05\%) & 0.125\% & 99.79\% \\
+ReTool & Keep-end (historical) & 1,259/1,611 & 153/1,259 (12.15\%) & 153/2,000 (7.65\%) & 0.055\% & 27.10\% \\
+ReTool & Wrapped (intended) & 1,606/1,611 & 325/1,606 (20.24\%) & 308/2,000 (15.40\%) & 0.134\% & 99.81\% \\
+ToolACE & BFD & 10/918 & 0/10 (0.00\%) & 0/11,300 (0.00\%) & 0.000\% & 17.23\% \\
+ToolACE & BFD-split & 913/918 & 353/913 (38.66\%) & 302/11,300 (2.67\%) & 2.089\% & 99.79\% \\
+ToolACE & Keep-end (historical) & 672/918 & 185/672 (27.53\%) & 185/11,300 (1.64\%) & 0.963\% & 88.20\% \\
+ToolACE & Wrapped (intended) & 913/918 & 360/913 (39.43\%) & 314/11,300 (2.78\%) & 2.116\% & 99.80\% \\
 \bottomrule
 \end{tabular}

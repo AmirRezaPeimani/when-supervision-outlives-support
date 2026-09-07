@@ -1,0 +1,18 @@
+{
+  "status": "complete",
+  "split": "conflict",
+  "split_sha256": "dfabba39cfbb8373f34db26113d691febf30630d9ec0123dcea562cc53c29e03",
+  "records": 600,
+  "base_only": true,
+  "adapter": null,
+  "batch_size": 8,
+  "mps_fp16": true,
+  "exact": 0.0,
+  "copied_stale": 0.0,
+  "value_token_nll": 0.006050808118889108,
+  "whole_target_nll": 1.258676180243492,
+  "device": "mps",
+  "compute_dtype": "torch.float16",
+  "seconds": 210.52445602416992,
+  "paid_compute_cad": 0.0
+}
