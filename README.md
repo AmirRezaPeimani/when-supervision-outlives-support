@@ -4,7 +4,7 @@ Research repository for **“Training on Broken Contexts: Source Loss and Repair
 
 ## Key results
 
-At a 512-token budget, BFD-split leaves 353/913 ToolACE targets separated from their recorded sources (38.66%), 315/1,606 ReTool targets separated from their recorded sources (19.61%), and 431/6,698 Glaive-FC targets separated from their recorded sources (6.43%). ToolACE grouped reconstruction retains 875/918 matched targets without duplicating source tokens. For ToolACE tool calls, retaining a referenced parameters preserves 73.15% of targets, compared with 28.60% when retaining the full schema.
+At a 512-token budget, BFD-split leaves 353/913 ToolACE targets separated from their recorded sources (38.66%), 315/1,606 ReTool targets separated from their recorded sources (19.61%), and 431/6,698 Glaive-FC targets separated from their recorded sources (6.43%). ToolACE grouped reconstruction retains 875/918 matched targets without duplicating source tokens. For ToolACE tool calls, retaining only the referenced parameters covers 73.15% of targets, compared with 28.60% when retaining the full schema.
 
 For BFD and BFD-split, each emitted `seq_lengths` fragment is treated as a separate causal-attention group; wrapped packing treats each fixed-length packed block as one attention group.
 
@@ -12,9 +12,9 @@ For BFD and BFD-split, each emitted `seq_lengths` fragment is treated as a separ
 
 - `src/vsr/`: rendering, provenance, policy simulation, auditing, training-example reconstruction, and schema reduction.
 - `scripts/`: public data/model acquisition, analyses, figure/table generation, conformance probes, and controlled-model utilities.
-- `configs/`: frozen scientific configurations with repository-relative paths.
+- `configs/`: experiment configurations with repository-relative paths.
 - `tests/`: focused regression tests, including causal source-before-target validation.
-- `analysis/` and `outputs/`: compact frozen evidence for the reported corpus, sensitivity, reconstruction, schema-coverage, conformance, and model-study results.
+- `analysis/` and `outputs/`: compact evidence for the reported corpus, sensitivity, reconstruction, schema-coverage, implementation, and model-study results.
 - `data/`: the released Glaive-FC evaluation subset and deterministic controlled-study records; ToolACE and ReTool are downloaded separately.
 - `figures/` and `tables/`: final paper-facing outputs.
 - `paper/`: the current manuscript, bibliography, and required Springer files; assets are in the repository figure and table directories.
@@ -90,7 +90,7 @@ PYTHONPATH=src .venv/bin/python scripts/run_action_repair.py \
   --output-dir outputs/schema_repair_reproduced
 ```
 
-Lightweight verification of the frozen headline outputs:
+Lightweight verification of the reported results:
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/verify_artifact.py
@@ -106,7 +106,7 @@ The focused suite covers exact provenance, attention-group isolation, causal sou
 
 ## Compute and runtime
 
-The focused tests and frozen-output verification are lightweight CPU jobs. Full corpus rendering and bootstrap analyses are CPU-only but can take several hours. The optional controlled-model matrix trains LoRA adapters for Qwen2.5-0.5B-Instruct and was run with float16 on Apple MPS. No paid compute is required for the corpus audits or reconstruction analyses.
+The focused tests and reported-result verification are lightweight CPU jobs. Full corpus rendering and bootstrap analyses are CPU-only but can take several hours. The optional controlled-model matrix trains LoRA adapters for Qwen2.5-0.5B-Instruct and was run with float16 on Apple MPS. No paid compute is required for the corpus audits or reconstruction analyses.
 
 ## Citation
 
