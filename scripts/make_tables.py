@@ -104,6 +104,14 @@ def case_sensitive() -> None:
         caption="Case-sensitive matching at every evaluated token budget.",
         label="tab:case-all",
     )
+    for label, wrapped in {
+        "Separated / retained": r"\shortstack{Separated /\\retained}",
+        "Separation rate": r"\shortstack{Separation\\rate}",
+        "Affected conversations": r"\shortstack{Affected\\conversations}",
+        "Affected assistant tokens": r"\shortstack{Affected\\assistant tokens}",
+        "Primary rate": r"\shortstack{Primary\\rate}",
+    }.items():
+        latex = latex.replace(label, wrapped)
     (OUT / "tableS3_case_sensitive_all_budgets.tex").write_text(latex)
 
 

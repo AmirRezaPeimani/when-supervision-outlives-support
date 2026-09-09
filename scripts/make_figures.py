@@ -155,9 +155,9 @@ def figure_incidence() -> None:
     policy_key = ax.legend(handles=policy_legend, frameon=False, fontsize=7, loc="upper left")
     ax.add_artist(policy_key)
     corpus_key = [
-        Line2D([0], [0], marker="o", linestyle="none", color=COLORS["ToolACE"], label="ToolACE (filled)"),
-        Line2D([0], [0], marker="o", linestyle="none", color=COLORS["ReTool"], markerfacecolor="none", label="ReTool (open)"),
-        Line2D([0], [0], marker="$\\oplus$", linestyle="none", color=COLORS["Glaive-FC"], label="Glaive-FC (open +)"),
+        Line2D([0], [0], marker="o", linestyle="none", color=COLORS["ToolACE"], label="ToolACE"),
+        Line2D([0], [0], marker="o", linestyle="none", color=COLORS["ReTool"], markerfacecolor="none", label="ReTool"),
+        Line2D([0], [0], marker="$\\oplus$", linestyle="none", color=COLORS["Glaive-FC"], label="Glaive-FC"),
     ]
     ax.legend(handles=corpus_key, frameon=False, fontsize=7, loc="center left")
     fig.tight_layout()
@@ -223,7 +223,7 @@ def figure_grouped_repair() -> None:
                     textcoords="offset points",
                     fontsize=6.5,
                 )
-        ax.set_title({"toolace": "ToolACE", "retool": "ReTool"}[corpus])
+        ax.set_title({"toolace": "(a) ToolACE", "retool": "(b) ReTool"}[corpus], loc="left")
         ax.set_xlabel("Retained input-token ratio (%)")
         ax.grid(alpha=0.25)
     axes[0].set_ylabel("Matched targets retained (%)")
@@ -248,7 +248,7 @@ def figure_schema_repair() -> None:
             ax.bar(x + offset, [100 * group.loc[b, "repair_rate"] for b in budgets], width=width, color=colors[mode], label=names[mode], hatch={"whole_schema": "///", "invoked_tool": "...", "parameter_slice": "xxx"}[mode], edgecolor="#333333", linewidth=0.5)
         ax.set_xticks(x, [str(b) if b < 1000 else f"{b//1024}k" for b in budgets])
         ax.set_xlabel("Token budget")
-        ax.set_title({"toolace": "ToolACE", "retool": "ReTool"}[corpus])
+        ax.set_title({"toolace": "(a) ToolACE", "retool": "(b) ReTool"}[corpus], loc="left")
         ax.grid(axis="y", alpha=0.25)
     axes[0].set_ylabel("Matched tool-call targets covered (%)")
     axes[1].legend(frameon=False, loc="upper left")
@@ -280,10 +280,10 @@ def figure_model_study() -> bool:
     axes[2].set_ylabel("Conflict outcome (%)")
     axes[0].set_ylim(-2, 102)
     axes[2].set_ylim(-2, 102)
-    for ax, title in zip(axes, ["Clean exact generation", "Clean target-value NLL", "Conflict outcome"], strict=True):
+    for ax, title in zip(axes, ["(a)", "(b)", "(c)"], strict=True):
         ax.set_xticks(x_values)
         ax.set_xlabel("Training examples with tool value\nremoved (%)")
-        ax.set_title(title)
+        ax.set_title(title, loc="left", weight="bold")
         ax.grid(alpha=0.25)
     axes[2].legend(frameon=False, fontsize=7)
     fig.tight_layout()
@@ -293,9 +293,7 @@ def figure_model_study() -> bool:
 
 def main() -> None:
     style()
-    figure_schematic()
     figure_incidence()
-    figure_denominators()
     figure_grouped_repair()
     figure_schema_repair()
     figure_model_study()

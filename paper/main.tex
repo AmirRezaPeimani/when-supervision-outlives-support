@@ -1,5 +1,8 @@
 \documentclass[pdflatex,sn-basic,Numbered]{sn-jnl}
 \usepackage{amsmath,amssymb,graphicx,booktabs,placeins,flafter,url,longtable,seqsplit}
+% Use standard floats: the automatic threeparttable wrapper conflicts with resizebox.
+\let\table\tableorg
+\let\endtable\endtableorg
 \newcommand{\toolace}{ToolACE}
 \newcommand{\retool}{ReTool}
 \newcommand{\glaive}{Glaive-FC}
@@ -10,8 +13,8 @@
 \affil*[1]{\orgdiv{Institute of Biomedical Engineering},
 \orgname{University of Toronto},
 \orgaddress{\city{Toronto}, \country{Canada}}}
-\abstract{Tool-augmented supervised fine-tuning can keep assistant targets in the training loss after sequence construction has separated them from the tool observations that supplied their values. We audit this failure by tracking each rendered token back to its original conversation and testing whether matched tool observations remain visible after assistant masking, truncation, splitting, and packing. We analyze ToolACE, ReTool, and a 5,000-conversation sample of Glaive-FC across six token budgets and several sequence-construction policies. At 512 tokens, BFD-split separates 38.66\%, 19.61\%, and 6.43\% of retained matched targets from their recorded sources in ToolACE, ReTool, and Glaive-FC, affecting 2.67\%, 15.05\%, and 8.60\% of conversations. Default BFD produces no such cases among retained matched targets, but retains only 17.23\% and 8.10\% of the original assistant supervision in ToolACE and ReTool. We then reconstruct training examples so that complete targets remain with the tool observations they use. On ToolACE at 512 tokens, grouping targets from the same conversation retains 875/918 matched targets while reducing the retained input-token ratio from 0.325 to 0.275 and eliminating 1,244 duplicated source tokens compared with reconstructing one example per target. For tool-call supervision, reducing the retained schema to the referenced parameters increases ToolACE coverage from 28.60\% to 73.15\%. Conformance tests also uncover a multi-batch token-stream defect in TRL 1.9.2 wrapped packing. Sequence construction therefore affects both how much supervision reaches the optimizer and whether that supervision is paired with the context that produced it.}
-\keywords{LLM post-training, supervised fine-tuning, tool-using agents, sequence packing, training data, data auditing}
+\abstract{Tool-augmented supervised fine-tuning can keep assistant targets in the training loss after sequence construction has separated them from the tool observations that supplied their values. We audit this failure by tracking each rendered token back to its original conversation and testing whether matched tool observations remain visible after assistant masking, truncation, splitting, and packing. We analyze ToolACE, ReTool, and a 5,000-conversation sample of Glaive-FC across six token budgets and several sequence-construction policies. At 512 tokens, BFD-split separates 38.66\%, 19.61\%, and 6.43\% of retained matched targets from their recorded sources in ToolACE, ReTool, and Glaive-FC, affecting 2.67\%, 15.05\%, and 8.60\% of conversations. Default BFD produces no such cases among retained matched targets, but retains only 17.23\% and 8.10\% of the original assistant supervision in ToolACE and ReTool. We then reconstruct training examples so that complete targets remain with the tool observations they use. On ToolACE at 512 tokens, grouping targets from the same conversation retains 875/918 matched targets while reducing the retained input-token ratio from 0.325 to 0.275 and eliminating 1,244 duplicated source tokens compared with reconstructing one example per target. For tool-call supervision, reducing the retained schema to the referenced parameters increases ToolACE coverage from 28.60\% to 73.15\%. Implementation checks also uncover a multi-batch token-stream defect in TRL 1.9.2 wrapped packing. Sequence construction therefore affects both how much supervision reaches the optimizer and whether that supervision is paired with the context that produced it.}
+\keywords{{LLM post-training, supervised fine-tuning, tool-using agents, sequence packing, training data, data auditing}}
 \maketitle
 
 \section{Introduction}
@@ -26,7 +29,7 @@ Recent agent-training work makes some of these dependencies explicit before fine
 
 We answer this question by tracking the origin of every token through sequence construction. For values that can be matched directly from a tool observation to the following assistant response, we test whether the original observation remains earlier in the same attention group as the supervised target. We report the fraction of matched targets that lose their source, the fraction of conversations affected, and the fraction of the original assistant objective contributed by the affected target tokens.
 
-Across ToolACE, ReTool, and Glaive-FC, sequence policies that split conversations across training examples frequently retain targets after separating them from their recorded tool observations. At a 512-token budget, BFD-split affects 38.66\% of retained matched targets in ToolACE, 19.61\% in ReTool, and 6.43\% in Glaive-FC. These cases occur in 2.67\%, 15.05\%, and 8.60\% of conversations, respectively. Default BFD produces no source-loss cases among retained matched targets in these audits, but retains only 17.23\% of the original assistant supervision in ToolACE and 8.10\% in ReTool. The choice of sequence policy therefore changes both supervision retention and the context available to that supervision.
+Across ToolACE, ReTool, and Glaive-FC, sequence policies that split conversations across training examples frequently retain targets after separating them from their recorded tool observations. At a 512-token budget, BFD-split affects 38.66\% of retained matched targets in ToolACE, 19.61\% in ReTool, and 6.43\% in Glaive-FC. These cases occur in 2.67\%, 15.05\%, and 8.60\% of conversations, respectively. Default BFD produces no such separations among retained matched targets in these audits, but retains only 17.23\% of the original assistant supervision in ToolACE and 8.10\% in ReTool. The choice of sequence policy therefore changes both supervision retention and the context available to that supervision.
 
 We also reconstruct shorter training examples that keep complete targets with the matched tool observations they use. Combining compatible targets from the same conversation reduces repeated context without reducing target coverage. On ToolACE at 512 tokens, grouping retains 875/918 matched targets, the same number as reconstructing a separate example for each target, while reducing the retained input-token ratio from 0.325 to 0.275 and eliminating 1,244 duplicated source tokens. For tool-call targets, large tool schemas create a second context-length problem. Keeping only the invoked tool or the parameters used in the call raises short-budget coverage substantially on ToolACE, whereas ReTool's compact schemas are better kept intact.
 
@@ -108,17 +111,17 @@ occurrence appears earlier in the same attention group as the supervised target-
 An identical value from another conversation or another position does not count as the recorded
 source.
 
-We call a retained target a \emph{source-loss target} when its matched tool value is no longer
-available under this final attention structure. If several matched values connect the same tool
-observation and assistant message, they are treated as one target unit, and the target is counted
-as source-loss if any of those values loses its recorded source.
+We count a retained target as \emph{separated} when its matched tool value is no
+longer available under the final attention structure. If several matched values connect
+the same tool observation and assistant message, they are treated as one target unit,
+and the target is counted as separated if any of those values loses its recorded source.
 
-We report three quantities. First, the source-loss rate is the fraction of retained matched targets
-with source loss. Second, we report the fraction of original conversations containing at least one
-source-loss target. Third, we report the affected target-value tokens as a fraction of the original
-assistant loss tokens. The first measures the failure among the relations captured by the matcher,
-the second shows how widely it occurs across conversations, and the third gives its contribution
-to the full SFT loss.
+We report three quantities. The separation rate is the fraction of retained matched
+targets that are separated from their recorded tool values. We also report the fraction
+of original conversations containing at least one separated target and the affected
+target-value tokens as a fraction of the original assistant loss tokens. These quantities
+measure the rate within the matched subset, its distribution across conversations, and
+its contribution to the full SFT loss.
 
 The primary analysis covers direct copied values. Paraphrases, calculations, multi-step semantic
 dependencies, and other relations that cannot be tied to a specific occurrence in the recorded
@@ -219,11 +222,7 @@ We fine-tune Qwen2.5-0.5B-Instruct with LoRA \citep{yang2024qwen25,hu2022lora} u
   \centering
   \includegraphics[width=\linewidth]{../figures/figure2_current_policy_incidence.pdf}
   \caption{
-  Separation of matched assistant targets from their recorded tool observations across token
-  budgets. Panel A shows the fraction of retained matched targets whose tool value is no longer
-  available after BFD-split or intended wrapped packing. Default BFD produces no such cases among
-  retained matched targets in any corpus--budget combination. Panel B compares the 512-token
-  separation rate with the fraction of original assistant supervision retained.
+  Separation of matched assistant targets from their recorded tool observations across token budgets. (a) Fraction of retained matched targets whose tool value is no longer available after BFD-split or intended wrapped packing. Default BFD produces no such cases among retained matched targets in any corpus--budget combination. (b) Separation rate versus the fraction of original assistant supervision retained at 512 tokens
   }
   \label{fig:policy}
 \end{figure}
@@ -235,7 +234,7 @@ tool observations (38.66\%, 95\% cluster-bootstrap CI 35.50--41.98), 315/1,606 R
 higher-specificity subsets: 297/773 nonnumeric targets (38.42\%), 171/417 values containing
 at least 20 characters (41.01\%), and 46/134 opaque identifiers (34.33\%).
 
-The rate falls as the token budget increases (Figure~\ref{fig:policy}A). The median contiguous
+The rate falls as the token budget increases (Figure~\ref{fig:policy}a). The median contiguous
 span needed to contain both the matched tool value and assistant target is 194 tokens for
 ToolACE, 32 for ReTool, and 65 for Glaive-FC. The corresponding 95th percentiles are
 913, 125, and 144 tokens.
@@ -244,76 +243,53 @@ Default BFD produces no target--source separations among the matched targets it 
 retains little assistant supervision on two of the three datasets. At 512 tokens, BFD retains
 17.23\% of the original assistant loss tokens in ToolACE and 8.10\% in ReTool, compared with
 91.99\% in Glaive-FC. BFD-split retains 99.79\%, 99.79\%, and 99.93\%, respectively
-(Table~\ref{tab:primary}; Figure~\ref{fig:policy}B).
+(Table~\ref{tab:primary}; Figure~\ref{fig:policy}b).
 
 \begin{table}[t]
 \centering
 \small
 \caption{
-Results at a 512-token budget. ``Separated'' counts retained matched targets whose recorded
-tool value is no longer available to the supervised target. ``Affected assistant tokens'' is
-the number of affected target-value tokens divided by the original assistant loss-token count.
+Primary comparison at a 512-token budget. ``Separated'' counts retained matched targets
+whose recorded tool value is no longer available to the supervised target.
 }
 \label{tab:primary}
-\resizebox{\linewidth}{!}{
-\begin{tabular}{llrrrrr}
+\begin{tabular}{llrrr}
 \toprule
 Corpus & Policy &
-Matched targets retained &
+\shortstack{Matched targets\\retained} &
 Separated &
-Affected conversations &
-Affected assistant tokens &
-Assistant supervision retained \\
+\shortstack{Assistant supervision\\retained} \\
 \midrule
-ToolACE
-& BFD
+ToolACE & BFD
 & 10/918
 & 0/10 (0.00\%)
-& 0/11,300 (0.00\%)
-& 0.000\%
 & 17.23\% \\
-
 & BFD-split
 & 913/918
 & 353/913 (38.66\%)
-& 302/11,300 (2.67\%)
-& 2.089\%
 & 99.79\% \\
 \addlinespace
 
-ReTool
-& BFD
+ReTool & BFD
 & 6/1,611
 & 0/6 (0.00\%)
-& 0/2,000 (0.00\%)
-& 0.000\%
 & 8.10\% \\
-
 & BFD-split
 & 1,606/1,611
 & 315/1,606 (19.61\%)
-& 301/2,000 (15.05\%)
-& 0.125\%
 & 99.79\% \\
 \addlinespace
 
-Glaive-FC
-& BFD
+Glaive-FC & BFD
 & 6,154/6,713
 & 0/6,154 (0.00\%)
-& 0/5,000 (0.00\%)
-& 0.000\%
 & 91.99\% \\
-
 & BFD-split
 & 6,698/6,713
 & 431/6,698 (6.43\%)
-& 430/5,000 (8.60\%)
-& 1.224\%
 & 99.93\% \\
 \bottomrule
 \end{tabular}
-}
 \end{table}
 
 The corpus-wide impact differs substantially from the rate among matched targets. In ToolACE,
@@ -337,13 +313,13 @@ token budgets are reported in the appendix.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{../figures/figure4_grouped_repair.pdf}
-  \caption{
-  Matched-target retention versus retained input-token ratio for three ways of reconstructing
-  training examples at 256, 512, 1,024, and 2,048 tokens. Grouping targets from the same
-  conversation generally matches one-example-per-target reconstruction using fewer input tokens.
-  At 512 tokens, grouping reduces duplicated source tokens from 1,244 to zero in ToolACE and
-  from 1,848 to 311 in ReTool.
-  }
+    \caption{
+    Matched-target retention versus retained input-token ratio for (a) ToolACE and
+    (b) ReTool at 256, 512, 1,024, and 2,048 tokens. Grouping targets from the same
+    conversation generally matches one-example-per-target reconstruction using fewer input
+    tokens. At 512 tokens, grouping reduces duplicated source tokens from 1,244 to zero in
+    ToolACE and from 1,848 to 311 in ReTool
+    }
   \label{fig:grouped}
 \end{figure}
 
@@ -372,10 +348,7 @@ targets and input tokens across budgets.
   \centering
   \includegraphics[width=\linewidth]{../figures/figure5_schema_repair.pdf}
   \caption{
-  Fraction of matched tool-call targets that fit within the token budget together with the
-  relevant user constraint, complete tool call, and specified schema content. Reducing the schema
-  substantially increases short-budget coverage in ToolACE, whereas ReTool's compact schemas
-  are better retained in full.
+  Fraction of matched tool-call targets that fit within the token budget together with the relevant user constraint, complete tool call, and specified schema content for (a) ToolACE and (b) ReTool. Reducing the schema substantially increases short-budget coverage in ToolACE, whereas ReTool's compact schemas are better retained in full
   }
   \label{fig:schema}
 \end{figure}
@@ -491,16 +464,6 @@ be reduced to the invoked tool or referenced parameters when the full declaratio
 much of the token budget.
 
 
-\section{Reproducibility and Ethics}
-
-The accompanying artifact contains pinned dataset and model revisions, content hashes, experiment
-configurations, random seeds, raw policy outputs, reconstructed training examples, and model
-predictions. Automated tests cover chat-template rendering, source and target span mapping, token
-tracking, packed sequence boundaries, training-example reconstruction, schema validity, and
-train/development/test separation. The analyzed corpora and Qwen2.5 model are publicly released
-under permissive licenses. The study uses no private conversations or human-subject data.
-
-
 \section{Conclusion}
 
 Tool-augmented SFT can retain assistant targets in the training loss after sequence construction
@@ -525,16 +488,21 @@ analyses, and wrote and revised the manuscript.
 No funding was received for conducting this study.
 \subsection*{Competing interests}
 The author has no relevant financial or non-financial interests to disclose.
+
 \subsection*{Data and code availability}
 The code, configurations, recorded results, and data acquisition instructions are available at
 \url{https://github.com/AmirRezaPeimani/when-supervision-outlives-support}.
-Dataset and model revisions, licenses, and reproducibility details are provided in the appendix
-and accompanying reproducibility artifact.
+Dataset and model revisions, licenses, and reproduction details are provided in the appendix.
+A snapshot of the reproducibility package used for this submission is provided as Online Resource~1.
 
 \begin{appendices}
+\setcounter{table}{1}
+\setcounter{figure}{3}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\thefigure}{\arabic{figure}}
 \section{Reproducibility}
 
-The accompanying artifact contains the code, configurations, and recorded outputs used for
+Online Resource~1 contains the code, configurations, and recorded outputs used for
 conversation rendering, token tracking, sequence-policy evaluation, value matching,
 training-example reconstruction, tool-call schema reduction, and the controlled model experiment.
 Experiment records include dataset or model revisions, random seeds where applicable, raw outputs,
@@ -592,7 +560,7 @@ The analyzed Dataset Viewer artifact is 97,037,816 bytes with SHA-256
 
 Of 112,960 Glaive-FC rows, 39,591 satisfy the specified multi-turn
 action/observation/answer eligibility rule. Eligible conversations are ranked by SHA-256 hash,
-and the 5,000 lowest-ranked conversations form the evaluation sample.
+and the 5,000 lowest-ranked conversations form the evaluation sample. Table~2 summarizes the Glaive-FC release and evaluation sample.
 
 \begin{table}[ht]
 \centering
@@ -606,6 +574,7 @@ machine-readable manifest.
 
 \section{Complete 512-token policy results}
 
+Table~3 reports the complete 512-token policy results.
 \begin{table}[ht]
 \centering
 \caption{
@@ -649,7 +618,8 @@ minus the primary case-insensitive rate, in percentage points.
 Results for all six token budgets are reported in Table~\ref{tab:case-all}.
 
 \begingroup
-\scriptsize
+\fontsize{6}{7.2}\selectfont
+\setlength{\tabcolsep}{1.5pt}
 \input{../tables/tableS3_case_sensitive_all_budgets.tex}
 \endgroup
 
@@ -674,7 +644,7 @@ Every serialized example is then checked for four properties: each selected targ
 complete; its matched tool value is present earlier in the same causal sequence; labels are
 restricted to the selected targets; and the example contains tokens from only one original
 conversation. All 34,128 serialized examples generated in the reconstruction experiments pass
-these checks.
+these checks. Table~6 compares the three reconstruction methods at 512 tokens.
 
 \begin{table}[ht]
 \centering
@@ -696,7 +666,7 @@ constructs a valid JSON schema containing the invoked function and the types, en
 constraints, required status, and descriptions associated with the referenced parameters.
 
 Calls with ambiguous function identity, missing declarations, or schemas that cannot be
-reconstructed as valid structures are not counted as covered.
+reconstructed as valid structures are not counted as covered. Table~7 reports tool-call coverage for the three schema conditions across token budgets.
 
 \begin{table}[ht]
 \centering
@@ -769,16 +739,20 @@ Dataset, configuration, training, evaluation, and analysis hashes are recorded i
 
 \subsection{Results}
 
+Figure~\ref{fig:controlled} and Table~8 summarize the controlled source-removal results.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{../figures/figure6_model_study.pdf}
 \caption{
-Controlled source-removal experiment across three optimization seeds. Exact generation is
-100\% at 25\% and 50\% source removal and falls to zero when the tool value is removed from
-all training examples. In the 0\% condition, one seed frequently emits the correct value using
-\texttt{VALUE:} instead of the prespecified \texttt{VALUE=} format, reducing its strict exact
-score.
+Controlled source-removal experiment across three optimization seeds.
+(a) Clean exact generation. (b) Clean target-value negative log-likelihood.
+(c) Conflict-set outcomes. Exact generation is 100\% at 25\% and 50\% source removal
+and falls to zero when the tool value is removed from all training examples. In the
+0\% condition, one seed frequently emits the correct value using \texttt{VALUE:}
+instead of the prespecified \texttt{VALUE=} format, reducing its strict exact score
 }
+\label{fig:controlled}
 \end{figure}
 
 \begin{table}[ht]
@@ -803,6 +777,7 @@ generation and $[1.2165,1.2710]$ for clean target-value NLL. The corresponding c
 are $[-100.00,-99.72]$ percentage points and $[1.0188,1.0597]$. These intervals resample
 evaluation records while retaining all three trained seeds within each replicate; seed-level SD
 is reported separately.
+Table~9 reports the corresponding family-level results for the 0\% and 100\% source-removal conditions.
 
 \begin{table}[ht]
 \centering
